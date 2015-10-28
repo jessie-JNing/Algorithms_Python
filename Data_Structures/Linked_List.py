@@ -41,129 +41,252 @@ class Node:
         self.data = initdata
         self.next = None
 
-    def getData(self):
 
-        return self.data
+def add_tail(head, item):
+    '''
+    add element to the tail
+    :param head: head node of the linkedlist
+    :param item: new node value
+    :return: None
+    '''
 
-    def getNext(self):
+    if head is None:
+        head = Node(item)
+    else:
+        current = head
+        while current.next:
+            current = current.next
+        current.next = Node(item)
 
-        return self.next
+def add_head(head, item):
+    '''
+    add element to the head
+    :param head: head node of the linkedlist
+    :param item: new node value
+    :return: None
+    '''
+    new_node = Node(item)
+    new_node.next = head
 
-    def setData(self,newdata):
+def search(head, item):
+    '''
+    search for the item in the list
+    :param head: head node of the linkedlist
+    :param item: new node value
+    :return: True or False
+    '''
+    current = head
+    while current:
+        if current.data == item:
+            return True
+        current = current.next
+    return False
 
-        self.data = newdata
+def isEmpty(head):
+    '''
+    test to see whether the list is empty
+    :param head:
+    :return:
+    '''
+    return head is None
 
-    def setNext(self,newnext):
+def size(head):
+    '''
+    get the number of items in he list
+    :param head:
+    :return: int
+    '''
+    count = 0
+    current = head
+    while current:
+        count += 1
+        current = current.next
+    return count
 
-        self.next = newnext
+def index(head, item):
+    '''
+    find the position of the item in the list
+    :param head:
+    :param item:
+    :return: index of the item, if not found, return -1
+    '''
+    index = 0
+    current = head
+    while current:
+        if current.data == item:
+            return index
+        index += 1
+        current = current.next
+    return -1
 
+def pop(head):
+    '''
+    remove and return the last item in the list
+    :param head:
+    :return:
+    '''
+    if head is Node:
+        return False
+    elif head.next is Node:
+        tail_value = head.data
+        head.data = None
+    else:
+        current = head
+        while current.next.next:
+            current = current.next
+        tail_value = current.next.data
+        current.next = Node
+    return tail_value
 
-class UnorderedList:
-
-    def __init__(self):
-        self.head = None
-        self.tail = None
-
-    def isEmpty(self):
-        return self.head == None
-
-    def add(self,item):
-        temp = Node(item)
-        if self.size()==0:
-            temp.setNext(self.head)
-            self.head = temp
-            self.tail = temp
-
+def pop_at(head, index):
+    '''
+    remove the item at the index, and return the value
+    :param head:
+    :param index:
+    :return:
+    '''
+    if head is None:
+        return False
+    else:
+        if index == 0:
+            value = head.data
+            head = head.next
+            return value
         else:
-            temp.setNext(self.head)
-            self.head = temp
-
-    def slide(self, start, stop):
-        link_slide = UnorderedList()
-        current = self.head
-        promote = False
-        while current!=None:
-            if current.getData() == start:
-                promote = True
-            elif current.getData() == stop:
-                break
-            if promote == True:
-                link_slide.add(current.getData())
-            current = current.getNext()
-        return link_slide
-
-    def __str__(self):
-        element = []
-        current = self.head
-        while current!= None:
-            element.append(str(current.getData()))
-            current = current.getNext()
-        return  "[" + ','.join(element) + "]"
-
-
-    def size(self):
-        current = self.head
-        count = 0
-        while current != None:
-            count = count + 1
-            current = current.getNext()
-
-        return count
-
-    def search(self,item):
-        current = self.head
-        found = False
-        while current != None and not found:
-            if current.getData() == item:
-                found = True
-            else:
-                current = current.getNext()
-
-        return found
-
-    def remove(self,item):
-        current = self.head
-        previous = None
-        found = False
-        while not found:
-            if current.getData() == item:
-                found = True
-            else:
+            cur_index = 1
+            previous, current = head, head.next
+            while current:
+                if cur_index == index:
+                    previous.next = current.next
+                    return current.data
                 previous = current
-                current = current.getNext()
+                current = current.next
+            return None
 
-        if previous == None:
-            self.head = current.getNext()
+
+def slide(head, start, stop):
+    '''
+    find the items from start to stop
+    :param head:
+    :param start: start index
+    :param stop: stop index
+    :return:
+    '''
+    if head is None or start > stop:
+        return False
+    else:
+        index = 0
+        current = head
+        slide_head = None
+
+        while current:
+            if index == start:
+                slide_head = current
+                slide_cur = current
+            elif index == stop:
+                slide_cur.next = current
+                return slide_head
+
+            if slide_cur:
+                slide_cur.next = current
+
+            current = current.next
+
+        return slide_head
+
+def partition(head, item):
+    '''
+
+    :param head:
+    :param item:
+    :return:
+    '''
+
+    guard = Node(0)
+    guard.next = head
+    current = head
+
+
+def display(head):
+    element = []
+    current = head
+
+    while current:
+        element.append(str(current.data))
+        current = current.next
+
+    return "[" + ','.join(element) + "]"
+
+
+def digit_sum(head_1, head_2):
+    head_sum = Node(0)
+    current = head_sum
+    carry = 0
+    while head_1 and head_2:
+        each_sum = head_1.data + head_2.data + carry
+        if each_sum > 9:
+            current.next = Node(each_sum%10)
+            carry = 1
         else:
-            previous.setNext(current.getNext())
+            current.next = Node(each_sum)
+            carry = 0
 
-    def append(self, item):
-        app = Node(item)
-        self.tail.setNext(app)
-        self.tail = app
+        head_1 = head_1.next
+        head_2 = head_2.next
 
-    def index(self, item):
-        current = self.head
-        previous = None
-        found = False
-        while current != None and not found:
-            if current.getData() == item:
-                found = True
-            else:
-                previous = current
-                current = current.getNext()
-        return previous.getData()
-
-    def list_pop(self):
-        current = self.head
-        previous = None
-        while current!= None:
-            previous = current
-            current = current.getNext()
-        if previous == None:
-            self.head = current.getNext()
-            return current
+        current = current.next
+    while head_1:
+        each_sum = head_1.data + carry
+        if each_sum > 9:
+            current.next = Node(each_sum%10)
+            carry = 1
         else:
-            previous.setNext(current.getNext())
-            return current
+            current.next = Node(each_sum)
+            carry = 0
+        head_1 = head_1.next
 
+    while head_2:
+        each_sum = head_2.data + carry
+        if each_sum > 9:
+            current.next = Node(each_sum%10)
+            carry = 1
+        else:
+            current.next = Node(each_sum)
+            carry = 0
+        head_2 = head_2.next
+
+    if carry == 1:
+        current.next = Node(1)
+
+    return head_sum.next
+
+def reverse(head):
+    previous = None
+    current = head
+    while current:
+        temp = current.next
+        current.next = previous
+
+        previous = current
+        current = temp
+
+    return previous
+
+
+if __name__=="__main__":
+    a1 = Node(7)
+    a2 = Node(1)
+    a3 = Node(6)
+    a4 = Node(5)
+    a5 = Node(9)
+    a6 = Node(2)
+
+
+    a1.next = a2
+    a2.next = a3
+
+    a4.next = a5
+    a5.next = a6
+
+    header = reverse(a1)
+    print display(header)
