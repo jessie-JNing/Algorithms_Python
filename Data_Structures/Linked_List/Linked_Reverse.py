@@ -31,6 +31,7 @@ pop(pos) removes and returns the item at position pos.
          It needs the position and returns the item. Assume the item is in the list.
 
 @author: Jessie
+
 @email: jessie.JNing@gmail.com
 
 """

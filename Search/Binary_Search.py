@@ -16,14 +16,10 @@ If it is in the list, must be in the upper half.
 
 def binary_search(alist, item):
     '''
-    :param alist: an ordered list
-    :param item: the item needs to be searched
-    :return: True if found.
-    A binary search will start by examining the middle item. If that item is the one we are searching for, we are done.
-    If it is not the correct item, we can use the ordered nature of the list to eliminate half of the remaining items.
+    Implement it with while loop.
     '''
     first = 0
-    last = len(alist)
+    last = len(alist)-1
     found = False
 
     while first <= last and not found:
@@ -39,12 +35,7 @@ def binary_search(alist, item):
 
 def binary_search_recursive(alist, item):
     '''
-    :param alist: an ordered list
-    :param item: the item needs to be searched
-    :return: True if found.
-    Implement it in recursive function
-    A binary search will start by examining the middle item. If that item is the one we are searching for, we are done.
-    If it is not the correct item, we can use the ordered nature of the list to eliminate half of the remaining items.
+    Implement it with recursion.
     '''
     middle = len(alist)/2
     if alist[middle] == item:
