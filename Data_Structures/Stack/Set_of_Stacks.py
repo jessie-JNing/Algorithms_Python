@@ -47,25 +47,25 @@ class set_of_stacks(object):
     def set_push(self, item):
         if self.stacks[-1].size() >= self.threshold:
             self.stacks.append(Stack())
-
         self.stacks[-1].push(item)
 
     def set_pop(self):
-        if self.set_isEmpty():
-            return None
-        else:
+        if self.stacks and not self.stacks[-1].isEmpty():
             set_value = self.stacks[-1].pop()
+            if self.stacks[-1].isEmpty():
+                self.stacks.pop()
             return set_value
+        else:
+            return None
 
     def set_pop_At(self, index):
-        if self.set_isEmpty() or self.set_size()<index or self.stacks[index].isEmpty():
+        if len(self.stacks)<=index or self.stacks[index].isEmpty():
             return None
 
         set_value = self.stacks[index].pop()
+        if self.stacks[index].isEmpty():
+            self.stacks.pop(index)
         return set_value
-
-    def set_isEmpty(self):
-        return self.stacks[0].isEmpty()
 
     def set_size(self):
         total_size = 0

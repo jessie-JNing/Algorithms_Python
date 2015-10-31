@@ -29,7 +29,7 @@ class Stack_min(object):
     def push(self, value):
         self.items.append(value)
         if self.minimum:
-            if value <= self.minimum[-1]:
+            if value < self.minimum[-1]:
                 self.minimum.append(value)
             else:
                 self.minimum.append(self.minimum[-1])
@@ -38,8 +38,7 @@ class Stack_min(object):
 
     def pop(self):
         if self.items:
-            if self.items[-1] == self.minimum:
-                self.minimum.pop()
+            self.minimum.pop()
             return self.items.pop()
         else:
             return False
