@@ -8,11 +8,75 @@
 @email: jessie.JNing@gmail.com
 """
 
+from Queue import Queue
+# use array, two queues
+
+class Animal(object):
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+        
+    def cat_or_dog(self):
+        if "cat" in self.name:
+            return "cat"
+        elif "dog" in self.name:
+            return "dog"
+        else:
+            return None
+
+class Queue_Animal_array(object):
+    def __init__(self):
+        self.cat = Queue()
+        self.dog = Queue()
+        self.count = 0
+
+    def animal_enqueue(self, item):
+        animal = Animal(item, self.count)
+        if animal.cat_or_dog() == "cat":
+            self.cat.enqueue(animal)
+            self.count += 1
+        elif animal.cat_or_dog() == "dog":
+            self.dog.enqueue(animal)
+            self.count += 1
+        else:
+            return None
+    
+    def animal_dequeueAny(self):
+        if self.cat.isEmpty() and self.dog.isEmpty():
+            return None
+        elif self.cat.isEmpty() and not self.dog.isEmpty():
+            return self.dog.dequeue()
+        elif not self.cat.isEmpty() and self.dog.isEmpty():
+            return self.cat.dequeue()
+        else:
+            cat = self.cat.peak().id
+            dog = self.dog.peak().id
+            if cat<dog:
+                return self.cat.dequeue()
+            else:
+                return self.dog.dequeue()
+    
+    def animal_dequeueCat(self):
+        if self.cat.isEmpty():
+            return None
+        else:
+            return self.cat.dequeue()
+        
+    def animal_dequeueDog(self):
+        if self.dog.isEmpty():
+            return None
+        else:
+            return self.dog.dequeue()
+
+
+
+
 class Node(object):
     def __init__(self,initdata):
         self.data = initdata
         self.next = None
 
+# use linked list, implement two queue
 class Queue_Animal(object):
     def __init__(self):
         self.head = None
@@ -75,27 +139,23 @@ class Queue_Animal(object):
         return "[" + ','.join(display_list) + "]"
 
 if __name__=="__main__":
-    queue_animal = Queue_Animal()
+    queue_animal = Queue_Animal_array()
     queue_animal.animal_enqueue("cat0")
-    queue_animal.animal_enqueue("cat1")
+    queue_animal.animal_enqueue("dog101")
     queue_animal.animal_enqueue("dog0")
     queue_animal.animal_enqueue("dog1")
     queue_animal.animal_enqueue("cat2")
     queue_animal.animal_enqueue("cat3")
     print queue_animal
 
-    print queue_animal.animal_dequeueAny()
-    print queue_animal
+    ani = queue_animal.animal_dequeueAny()
+    print ani.id, ani.name
 
-    print queue_animal.animal_dequeueEither("cat")
-    print queue_animal
+    ani = queue_animal.animal_dequeueAny()
+    print ani.id, ani.name
 
-    print queue_animal.animal_dequeueEither("cat")
-    print queue_animal
+    ani = queue_animal.animal_dequeueCat()
+    print ani.id, ani.name
 
-    print queue_animal.animal_dequeueEither("cat")
-    print queue_animal
-
-    print queue_animal.animal_dequeueEither("cat")
-    print queue_animal
-
+    ani = queue_animal.animal_dequeueCat()
+    print ani.id, ani.name

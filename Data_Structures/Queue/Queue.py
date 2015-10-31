@@ -31,10 +31,16 @@ class Queue(object):
         return len(self.items) == 0
 
     def enqueue(self, item):
-        self.items.insert(0, item)
+        self.items.append(item)
 
     def dequeue(self):
-        return self.items.pop()
+        return self.items.pop(0)
+
+    def peak(self):
+        if not self.isEmpty():
+            return self.items[0]
+        else:
+            return None
 
     def size(self):
         return len(self.items)
