@@ -37,4 +37,4 @@ def recursion_permutation(s, p):
         return p
 
 if __name__=="__main__":
-    print "find_permutation('abc'): ", find_permutation('abc')
+    print "find_permutation('abc'): ", find_permutation('abcd')

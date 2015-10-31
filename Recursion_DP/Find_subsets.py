@@ -32,4 +32,4 @@ def recursion_subset(ele, subsets):
 
 
 if __name__=="__main__":
-    print "find_subsets([1,2,3]): ", find_subsets([1,2,3])
+    print "find_subsets([1,2,3]): ", find_subsets([1,2,3,4])

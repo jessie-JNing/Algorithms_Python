@@ -12,23 +12,31 @@ to count how many possible ways the child can run up the starts.
 
 """
 
-def runup_stairs(n):
-    if n < 1:
-        return None
+# naive recursion
+def run_stairs(n):
+    if n < 0: return 0
 
-    if n == 1:
-        return 1
+    elif n ==0: return 1
 
-    if n == 2:
-        return 2
+    else:
+        return run_stairs(n-1) + run_stairs(n-2) + run_stairs(n-3)
 
-    if n == 3:
-        return 3
 
-    if n > 3:
-        return (runup_stairs(n-1)+1) + (runup_stairs(n-2)+2) + (runup_stairs(n-3)+4)
+def run_stairs_dp(n):
+    cache = {}
+    return _run_stairs_dp(n, cache)
+
+def _run_stairs_dp(n, cache):
+    if n < 0: return 0
+
+    elif n==0: return 1
+
+    else:
+        cache[n] = run_stairs(n-1) + run_stairs(n-2) + run_stairs(n-3)
+        return cache[n]
 
 if __name__=="__main__":
-    print "runup_stairs(3): ", runup_stairs(3)
-    print "runup_stairs(4): ", runup_stairs(4)
-    print "runup_stairs(8): ", runup_stairs(8)
+
+    print "run_stairs(3): ", run_stairs(3), "-- run_stairs_dp(3): ", run_stairs_dp(3)
+    print "run_stairs(4): ", run_stairs(4), "-- run_stairs_dp(4): ", run_stairs_dp(4)
+    print "run_stairs(18): ", run_stairs(18), "-- run_stairs_dp(18): ", run_stairs_dp(18)
