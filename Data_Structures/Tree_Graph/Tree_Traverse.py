@@ -41,9 +41,6 @@ def levelorder(tree):
             print [x.getRootVal() for x in current_level],
             current_level = next_level
 
-
-
-
 def level_order_linkedlist(tree):
     if tree is not None:
         current = Linked_list()

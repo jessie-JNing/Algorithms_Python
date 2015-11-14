@@ -30,6 +30,26 @@ def breadth_first_search(graph, root):
                     queue.enqueue(node)
     return visited
 
+def bread_first_search2(graph, root):
+    if graph is None:
+        return None
+    level = {root: None}
+    parent = {root: []}
+    i = 1
+    current = [root]
+    while current:
+        next_level = []
+        for u in current:
+            for v in graph[u]:
+                if v not in level:
+                    level[v] = i
+                    parent[v] = u
+                    next_level.append(v)
+            current = next_level
+        i +=1
+
+
+
 
 def depth_first_search(graph, root):
 
@@ -49,13 +69,23 @@ def depth_first_search(graph, root):
                     saved_nodes.push(node)
     return visited
 
-def depth_first_search_recursion(graph, root):
+# find all possible routes
+def depth_first_search_recursion(graph):
 
     if graph is None:
         return []
 
-    visited = []
-    return _depth_first_search_recursion(graph, root, visited)
+    visited = {}
+    for r in graph:
+        if r not in visited:
+            visited[r] = True
+            print _depth_first_search_recursion(graph, r, [])
+
+# with start node known, find the route
+def depth_first_search_recursion2(graph, root):
+    if graph is None:
+        return None
+    return _depth_first_search_recursion(graph, root, [])
 
 def _depth_first_search_recursion(graph, root, visited):
     if root in visited:
@@ -77,7 +107,7 @@ if __name__=="__main__":
              4: [2,3,4],\
              5: [0,3,3]}
 
-    print "depth_first_search", depth_first_search(graph, 0)
+    #print "depth_first_search", depth_first_search(graph, 0)
     print "depth_first_search_recursion", depth_first_search_recursion(graph, 0)
 
-    print "breadth_first_search", breadth_first_search(graph, 0)
+    #print "breadth_first_search", breadth_first_search(graph, 0)

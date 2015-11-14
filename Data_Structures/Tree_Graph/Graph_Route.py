@@ -12,12 +12,13 @@ between two nodes.
 
 def find_route(graph, start, end):
     visited = []
-    return search_graph(graph, start, end, visited)
+    return end in search_graph(graph, start, end, visited)
 
 def search_graph(graph, start, end, visited):
     if start in visited:
         return visited
     elif start == end:
+        visited.append(end)
         return visited
     else:
         visited.append(start)
@@ -37,5 +38,5 @@ if __name__=="__main__":
              4: [],\
              5: []}
 
-    print "find_route", find_route(graph, 0, 3)
+    print "find_route", find_route(graph, 1, 5)
 

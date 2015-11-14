@@ -5,6 +5,7 @@
 Implement a function to check if a binary tree is balanced.
 
 Balanced Tree: height(left) - height(right) = -1, 0, 1
+Height:  the longest path from the root to leaf
 
 @author: Jessie
 @email: jessie.JNing@gmail.com
@@ -12,6 +13,7 @@ Balanced Tree: height(left) - height(right) = -1, 0, 1
 """
 from Tree import BinaryTree
 
+#---------------------------------------------------------
 def traverse_node(tree):
     if tree:
         # visit the current root node
@@ -35,6 +37,48 @@ def check_height(tree, left_height, right_height):
 
     return (left_height, right_height)
 
+#---------------------------------------------------------
+
+def isBalanced(tree):
+    if tree:
+        height_diff = get_height(tree.getLeftChild()) - get_height(tree.getRightChild())
+        if abs(height_diff) >1:
+            return False
+        else:
+            return isBalanced(tree.getLeftChild()) and isBalanced(tree.getRightChild())
+    else:
+        return True
+
+def get_height(tree):
+    if tree:
+        return 1 + max([get_height(tree.getLeftChild()), get_height(tree.getRightChild())])
+    else:
+        return 0
+
+#---------------------------------------------------------
+def isBalanced_reduce(tree):
+    if check_height_reduce(tree) == -1:
+        return False
+    else:
+        return True
+
+def check_height_reduce(tree):
+    if tree is None:
+        return 0
+    else:
+        left_height = check_height_reduce(tree.getLeftChild())
+        if left_height == -1:
+            return -1
+        right_height = check_height_reduce(tree.getRightChild())
+        if right_height == -1:
+            return -1
+
+        height_diff = left_height - right_height
+        if height_diff > 1:
+            return -1
+        else:
+            return max([left_height, right_height]) + 1
+
 
 if __name__=="__main__":
     r = BinaryTree('a')
@@ -45,8 +89,8 @@ if __name__=="__main__":
     print "right child:", (r.getRightChild().getRootVal())
     r.insertRight('d')
     print "right child:", (r.getRightChild().getRootVal())
-    r.insertRight('e')
-    print "right child:", (r.getRightChild().getRootVal())
+    r.insertLeft('e')
+    #print "right child:", (r.getRightChild().getRootVal())
 
 
-    print "traverse_node\n", traverse_node(r)
+    print "traverse_node", traverse_node(r)
